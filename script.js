@@ -23,12 +23,12 @@ const createHorizontalLine = (lines, grids) => {
 			const id = grid.getAttribute('id');
 			const givenGrid = document.getElementById(id);
 			givenGrid.classList.remove('out');
-			// givenGrid.style.backgroundColor = 'transparent';
-			givenGrid.style.backgroundColor = '#34ebd8';
+			givenGrid.style.backgroundColor = 'transparent';
+			//givenGrid.style.backgroundColor = '#34ebd8';
 
 			if (isMouseDown) {
-				// givenGrid.classList.add('transparent');
-				givenGrid.classList.add('blue');
+				givenGrid.classList.add('transparent');
+				//givenGrid.classList.add('blue');
 			}
 			console.log(id);
 		});
@@ -37,8 +37,8 @@ const createHorizontalLine = (lines, grids) => {
 			const givenGrid = document.getElementById(id);
 			givenGrid.classList.add('out');
 
-			// givenGrid.style.backgroundColor = '#34ebd8';
-			givenGrid.style.backgroundColor = 'transparent';
+			givenGrid.style.backgroundColor = '#34ebd8';
+			//givenGrid.style.backgroundColor = 'transparent';
 		});
 	});
 };
@@ -56,6 +56,8 @@ function reset() {
 	const grid = document.querySelectorAll('.grid');
 	grid.forEach((grid) => {
 		grid.classList?.remove('blue');
+		grid.classList?.remove('transparent');
+
 		console.log('reseted');
 	});
 }
