@@ -92,7 +92,13 @@ document.addEventListener('keydown', (keyId) => {
 		}
 	}
 	if (keyId.key == 'c' || keyId.key == 'C') {
-		color = prompt('Enter color you want to write with\n word or Hex');
+		color = prompt(
+			'Enter color you want to write with word or Hex',
+			'#34ebd8'
+		);
+		if (color.length == '0') {
+			color = '#34ebd8';
+		}
 		// let toColor = document.classList;
 		// const root = document.querySelector(':root');
 		// root.style.setProperty('--color', `${color}`);
