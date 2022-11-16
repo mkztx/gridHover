@@ -2,7 +2,7 @@ const main = document.querySelector('#main');
 
 const createGrid = (x, y) => {
 	const grid = document.createElement('div');
-	grid.classList.add('grid', 'out');
+	grid.classList.add('grid');
 	grid.setAttribute('id', `x${x}y${y}`);
 	return grid;
 };
@@ -23,22 +23,24 @@ const createHorizontalLine = (lines, grids) => {
 			const id = grid.getAttribute('id');
 			const givenGrid = document.getElementById(id);
 			givenGrid.classList.remove('out');
-			givenGrid.style.backgroundColor = 'transparent';
-			//givenGrid.style.backgroundColor = '#34ebd8';
+			if (trail == 1) {
+				//givenGrid.style.backgroundColor = 'transparent';
+				givenGrid.style.backgroundColor = '#34ebd8';
+			}
 
 			if (isMouseDown) {
-				givenGrid.classList.add('transparent');
-				//givenGrid.classList.add('blue');
+				//givenGrid.classList.add('transparent');
+				givenGrid.classList.add('blue');
 			}
-			console.log(id);
 		});
 		grid.addEventListener('mouseleave', () => {
 			const id = grid.getAttribute('id');
 			const givenGrid = document.getElementById(id);
 			givenGrid.classList.add('out');
-
-			givenGrid.style.backgroundColor = '#34ebd8';
-			//givenGrid.style.backgroundColor = 'transparent';
+			if (trail == 1) {
+				//givenGrid.style.backgroundColor = '#34ebd8';
+				givenGrid.style.backgroundColor = 'transparent';
+			}
 		});
 	});
 };
@@ -55,9 +57,38 @@ const mouseUp = document.addEventListener('mouseup', () => {
 function reset() {
 	const grid = document.querySelectorAll('.grid');
 	grid.forEach((grid) => {
+		grid.classList?.remove('out');
+
+		grid.style.backgroundColor = 'transparent';
 		grid.classList?.remove('blue');
 		grid.classList?.remove('transparent');
 
 		console.log('reseted');
 	});
 }
+let trail = 1;
+let color = '#34ebd8';
+document.addEventListener('keydown', (keyId) => {
+	if (keyId.key == 'r' || keyId.key == 'R') {
+		reset();
+	}
+	if (keyId.key == 't' || keyId.key == 'T') {
+		if (trail == 1) {
+			reset();
+			trail = 0;
+		} else {
+			trail = 1;
+		}
+	}
+	if (keyId.key == 'c' || keyId.key == 'C') {
+		color = prompt('Enter color you want to write with\n word or Hex');
+		let toColor = document.classList;
+		const root = document.querySelector(':root');
+		const rootColor = getComputedStyle(root);
+		rootColor.style.setProperty('--color', `${color}`);
+		console.log(toColor);
+	}
+});
+
+// TODO while pressed M opening window in which you can choose color of brush
+// TODO and turn on/off trail behind pointer
