@@ -22,26 +22,35 @@ const createHorizontalLine = (lines, grids) => {
 		grid.addEventListener('mouseenter', () => {
 			const id = grid.getAttribute('id');
 			const givenGrid = document.getElementById(id);
-			givenGrid.classList.remove('out');
-			if (trail == 1) {
-				//givenGrid.style.backgroundColor = 'transparent';
-				givenGrid.style.backgroundColor = '#34ebd8';
-			}
-
+			// givenGrid.classList.remove('out');
+			// if (trail == 1) {
+			// 	//givenGrid.style.backgroundColor = 'transparent';
+			// 	givenGrid.style.backgroundColor = '#34ebd8';
+			// }
 			if (isMouseDown) {
-				//givenGrid.classList.add('transparent');
-				givenGrid.classList.add('blue');
+				//givenGrid.style.backgroundColor = 'transparent';
+				givenGrid.style.backgroundColor = color;
 			}
-		});
-		grid.addEventListener('mouseleave', () => {
-			const id = grid.getAttribute('id');
-			const givenGrid = document.getElementById(id);
-			givenGrid.classList.add('out');
-			if (trail == 1) {
-				//givenGrid.style.backgroundColor = '#34ebd8';
+			if (eraser && isMouseDown) {
 				givenGrid.style.backgroundColor = 'transparent';
 			}
+			// if (isMouseDown) {
+			// 	//givenGrid.classList.add('transparent');
+			// 	givenGrid.classList.add('blue');
+			// }
 		});
+		// grid.addEventListener('mouseleave', () => {
+		// 	console.log('test');
+		// 	if (!isMouseDown) {
+		// 		const id = grid.getAttribute('id');
+		// 		const givenGrid = document.getElementById(id);
+		// 		givenGrid.classList.add('out');
+		// 		if (trail == 1) {
+		// 			//givenGrid.style.backgroundColor = '#34ebd8';
+		// 			givenGrid.style.backgroundColor = 'transparent';
+		// 		}
+		// 	}
+		// });
 	});
 };
 let isMouseDown = 0;
@@ -68,6 +77,8 @@ function reset() {
 }
 let trail = 1;
 let color = '#34ebd8';
+let eraser = 0;
+let hidden = 0;
 document.addEventListener('keydown', (keyId) => {
 	if (keyId.key == 'r' || keyId.key == 'R') {
 		reset();
@@ -82,11 +93,32 @@ document.addEventListener('keydown', (keyId) => {
 	}
 	if (keyId.key == 'c' || keyId.key == 'C') {
 		color = prompt('Enter color you want to write with\n word or Hex');
-		let toColor = document.classList;
-		const root = document.querySelector(':root');
-		const rootColor = getComputedStyle(root);
-		rootColor.style.setProperty('--color', `${color}`);
-		console.log(toColor);
+		// let toColor = document.classList;
+		// const root = document.querySelector(':root');
+		// root.style.setProperty('--color', `${color}`);
+		// console.log(toColor);
+	}
+	if (keyId.key == 'e' || keyId.key == 'E') {
+		if (eraser == 1) {
+			eraser = 0;
+		} else {
+			eraser = 1;
+		}
+	}
+	if (keyId.key == 'h' || keyId.key == 'H') {
+		const boxes = document.querySelectorAll('.box');
+
+		if (hidden == 1) {
+			hidden = 0;
+			boxes.forEach((box) => {
+				box.style.visibility = 'visible';
+			});
+		} else {
+			hidden = 1;
+			boxes.forEach((box) => {
+				box.style.visibility = 'hidden';
+			});
+		}
 	}
 });
 
